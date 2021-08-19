@@ -20,7 +20,6 @@ class Authenticate extends Middleware
 //        }
     }
 
-    // from authenticate function
     /**
      * Handle an incoming request.
      *

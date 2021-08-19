@@ -30,40 +30,28 @@ class AuthController extends Controller
 
             $cookie = cookie('jwt', $token, 3600);
 
-            return response([
-                'token' => $token,
-            ])->withCookie($cookie);
+            return response(['token' => $token])->withCookie($cookie);
         }
 
-        return response([
-            'error' => 'Invalid Credentials!',
-        ], Response::HTTP_UNAUTHORIZED);
+        return response(['error' => 'Invalid Credentials!'], Response::HTTP_UNAUTHORIZED);
     }
 
     public function logout()
     {
         $cookie = Cookie::forget('jwt');
 
-        return response([
-            'message' => 'success'
-        ])->withCookie($cookie);
+        return response(['message' => 'success'])->withCookie($cookie);
     }
 
     public function register(RegisterRequest $request)
     {
         // + array_merge толко без изменений если поля уже есть
         $request->only('first_name', 'last_name', 'email')
-        + [
-            'password' => Hash::make($request->input('password')),
-            'role_id' => 1,
-        ];
+        + ['password' => Hash::make($request->input('password')), 'role_id' => 1];
 
         $user = User::create(
             $request->only('first_name', 'last_name', 'email')
-            + [
-                'password' => Hash::make($request->input('password')),
-                'role_id' => 1,
-            ]
+            + ['password' => Hash::make($request->input('password')), 'role_id' => 1]
         );
 
         return response($user, Response::HTTP_CREATED);

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Support\Facades\Gate;
 
-class OrderController extends Controller
+class OrderController extends AdminController
 {
     /**
      * @OA\Get(path="/orders",

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Resources\ProductResource;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
     /**
      * @OA\Get(path="/products",

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ImageUploadRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class ImageController extends Controller
+class ImageController extends AdminController
 {
     /**
      * @OA\Post(
