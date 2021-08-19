@@ -29,8 +29,7 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::group([
     'middleware' => 'auth:api', // Unauthenticated if header Accept application/json
-    'prefix' => 'admin',
-    'namespace' => 'Admin'
+    'prefix' => 'admin'
 ], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -41,7 +40,7 @@ Route::group([
     Route::post('upload', [ImageController::class, 'upload']);
     Route::get('export', [OrderController::class, 'export']);
 
-    Route::apiResource('users', \App\Http\Controllers\Admin\UserController::class);
+    Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('orders', OrderController::class)->only('index', 'show');
