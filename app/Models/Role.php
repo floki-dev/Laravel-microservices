@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Role
@@ -24,7 +25,7 @@ class Role extends Model
 
     public $timestamps = false;
 
-    public function permissions()
+    public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'role_permission');
     }

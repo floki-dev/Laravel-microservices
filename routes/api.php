@@ -24,19 +24,27 @@ Route::get('/', function () {
     return 'API is working!';
 });
 
+// Common
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 
 Route::group([
     'middleware' => 'auth:api', // Unauthenticated if header Accept application/json
-    'prefix' => 'admin'
+], function () {
+    Route::get('user', [AuthController::class, 'user']);
+    Route::put('users/info', [AuthController::class, 'updateInfo']);
+    Route::put('users/password', [AuthController::class, 'updatePassword']);
+});
+
+// Admin
+Route::group([
+    'middleware' => ['auth:api', 'scope:admin'], // Unauthenticated if header Accept application/json
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
 ], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('chart', [DashboardController::class, 'chart']);
-    Route::get('user', [UserController::class, 'user']);
-    Route::put('users/info', [UserController::class, 'updateInfo']);
-    Route::put('users/password', [UserController::class, 'updatePassword']);
     Route::post('upload', [ImageController::class, 'upload']);
     Route::get('export', [OrderController::class, 'export']);
 
@@ -47,6 +55,7 @@ Route::group([
     Route::apiResource('permissions', PermissionController::class)->only('index');
 });
 
+// Influencer
 Route::group([
     'prefix' => 'influencer',
     'namespace' => 'Influencer'

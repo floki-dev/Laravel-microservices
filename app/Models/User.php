@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Passport\HasApiTokens;
 
 /**
@@ -39,12 +40,13 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $is_influencer
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereIsInfluencer($value)
  */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, HasFactory;
 
-    // В массив fillable мы указываем колонки, которые разрешаем заполнять, а в guarded - которые запрещаем
     protected $guarded = ['id'];
 
     protected $hidden = [
@@ -53,16 +55,26 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasOneThrough(Role::class, UserRole::class, 'user_id', 'id', 'id', 'role_id');
     }
 
-    public function permissions()
+    public function permissions(): Collection
     {
         return $this->role->permissions->pluck('name');
     }
 
-    public function hasAccess($access)
+    public function hasAccess($access): bool
     {
         return $this->permissions()->contains($access);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->is_influencer === 0;
+    }
+
+    public function isInfluencer(): bool
+    {
+        return $this->is_influencer === 1;
     }
 }
