@@ -17,11 +17,11 @@ class ProductController extends AdminController
      * @OA\Get(path="/products",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Product Collection",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
@@ -36,20 +36,20 @@ class ProductController extends AdminController
      * @OA\Get(path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="User",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Product ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                        \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id): ProductResource
     {
@@ -63,11 +63,11 @@ class ProductController extends AdminController
      *   path="/products",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="201",
+     * @OA\Response(response="201",
      *     description="Product Create",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ProductCreateRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -83,20 +83,20 @@ class ProductController extends AdminController
      *   path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="202",
+     * @OA\Response(response="202",
      *     description="Product Update",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Product ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -113,20 +113,20 @@ class ProductController extends AdminController
      * @OA\Delete(path="/products/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Products"},
-     *   @OA\Response(response="204",
+     * @OA\Response(response="204",
      *     description="Product Delete",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Product ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                           \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {

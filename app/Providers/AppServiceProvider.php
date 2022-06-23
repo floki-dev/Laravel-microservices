@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
@@ -24,16 +24,22 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Passport::routes();
 
-        Gate::define('view', function (User $user, $model) {
-            return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
-        });
+        Gate::define(
+            'view',
+            static function (User $user, $model) {
+                return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
+            }
+        );
 
-        Gate::define('edit', function (User $user, $model) {
-            return $user->hasAccess("edit_{$model}");
-        });
+        Gate::define(
+            'edit',
+            static function (User $user, $model) {
+                return $user->hasAccess("edit_{$model}");
+            }
+        );
     }
 }

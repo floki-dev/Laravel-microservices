@@ -34,12 +34,18 @@ class AuthServiceProvider extends ServiceProvider
             'influencer' => 'Influencer access',
         ]);
 
-        Gate::define('view', function (User $user, $model) {
-            return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
-        });
+        Gate::define(
+            'view',
+            static function (User $user, $model) {
+                return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
+            }
+        );
 
-        Gate::define('edit', function (User $user, $model) {
-            return $user->hasAccess("edit_{$model}");
-        });
+        Gate::define(
+            'edit',
+            static function (User $user, $model) {
+                return $user->hasAccess("edit_{$model}");
+            }
+        );
     }
 }

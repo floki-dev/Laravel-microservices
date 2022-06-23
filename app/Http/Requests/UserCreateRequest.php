@@ -56,7 +56,7 @@ class UserCreateRequest extends FormRequest
      */
     public function authorize()
     {
-//        return Gate::allows('edit', 'users');
+        //        return Gate::allows('edit', 'users');
         return true;
     }
 

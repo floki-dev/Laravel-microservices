@@ -14,11 +14,11 @@ class OrderController extends AdminController
      * @OA\Get(path="/orders",
      *   security={{"bearerAuth":{}}},
      *   tags={"Orders"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Order Collection",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
@@ -33,20 +33,20 @@ class OrderController extends AdminController
      * @OA\Get(path="/orders/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Orders"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="User",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Order ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id): OrderResource
     {
@@ -59,11 +59,11 @@ class OrderController extends AdminController
      * @OA\Get(path="/export",
      *   security={{"bearerAuth":{}}},
      *   tags={"Orders"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Order Export",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function export(): \Symfony\Component\HttpFoundation\StreamedResponse
     {

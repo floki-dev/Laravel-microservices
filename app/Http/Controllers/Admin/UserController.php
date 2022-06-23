@@ -19,19 +19,19 @@ class UserController extends AdminController
      * @OA\Get(path="/users",
      *   security={{"bearerAuth":{}}},
      *   tags={"Users"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="User Collection",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="page",
      *     description="Pagination page",
      *     in="query",
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
@@ -46,20 +46,20 @@ class UserController extends AdminController
      * @OA\Get(path="/users/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Users"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="User",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="User ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id): UserResource
     {
@@ -75,15 +75,15 @@ class UserController extends AdminController
      *   path="/users",
      *   security={{"bearerAuth":{}}},
      *   tags={"Users"},
-     *   @OA\Response(response="201",
+     * @OA\Response(response="201",
      *     description="User Create",
      *   ),
-     *   @OA\RequestBody(
+     * @OA\RequestBody(
      *     required=true,
-     *     @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
+     * @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                                                       \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(UserCreateRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -94,10 +94,12 @@ class UserController extends AdminController
             + ['password' => Hash::make(1234)]
         );
 
-        UserRole::create([
-            'user_id' => $user->id,
-            'role_id' => $request->input('role_id'),
-        ]);
+        UserRole::create(
+            [
+                'user_id' => $user->id,
+                'role_id' => $request->input('role_id'),
+            ]
+        );
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
@@ -107,24 +109,24 @@ class UserController extends AdminController
      *   path="/users/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Users"},
-     *   @OA\Response(response="202",
+     * @OA\Response(response="202",
      *     description="User Update",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="User ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   ),
-     *   @OA\RequestBody(
+     * @OA\RequestBody(
      *     required=true,
-     *     @OA\JsonContent(ref="#/components/schemas/UserUpdateRequest")
+     * @OA\JsonContent(ref="#/components/schemas/UserUpdateRequest")
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                                                       \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UserUpdateRequest $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -136,10 +138,12 @@ class UserController extends AdminController
 
         UserRole::where('role_id', $user->id)->delete();
 
-        UserRole::create([
-            'user_id' => $user->id,
-            'role_id' => $request->input('role_id'),
-        ]);
+        UserRole::create(
+            [
+                'user_id' => $user->id,
+                'role_id' => $request->input('role_id'),
+            ]
+        );
 
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
@@ -148,20 +152,20 @@ class UserController extends AdminController
      * @OA\Delete(path="/users/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Users"},
-     *   @OA\Response(response="204",
+     * @OA\Response(response="204",
      *     description="User Delete",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="User ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                        \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {

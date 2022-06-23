@@ -21,7 +21,7 @@ class AuthController extends Controller
      * @OA\Post(
      *   path="/login",
      *   tags={"Public"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Login",
      *   )
      * )
@@ -66,7 +66,7 @@ class AuthController extends Controller
      * @OA\Get(path="/user",
      *   security={{"bearerAuth":{}}},
      *   tags={"Profile"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Authenticated User",
      *   )
      * )
@@ -81,11 +81,13 @@ class AuthController extends Controller
             return $resource;
         }
 
-        return $resource->additional([
+        return $resource->additional(
+            [
             'data' => [
                 'permissions' => $user->permissions(),
             ],
-        ]);
+            ]
+        );
     }
 
     /**
@@ -95,12 +97,12 @@ class AuthController extends Controller
      *   path="/users/info",
      *   security={{"bearerAuth":{}}},
      *   tags={"Profile"},
-     *   @OA\Response(response="202",
+     * @OA\Response(response="202",
      *     description="User Info Update",
      *   ),
-     *   @OA\RequestBody(
+     * @OA\RequestBody(
      *     required=true,
-     *     @OA\JsonContent(ref="#/components/schemas/UpdateInfoRequest")
+     * @OA\JsonContent(ref="#/components/schemas/UpdateInfoRequest")
      *   )
      * )
      */
@@ -118,12 +120,12 @@ class AuthController extends Controller
      *   path="/users/password",
      *   security={{"bearerAuth":{}}},
      *   tags={"Profile"},
-     *   @OA\Response(response="202",
+     * @OA\Response(response="202",
      *     description="User Password Update",
      *   ),
-     *   @OA\RequestBody(
+     * @OA\RequestBody(
      *     required=true,
-     *     @OA\JsonContent(ref="#/components/schemas/UpdatePasswordRequest")
+     * @OA\JsonContent(ref="#/components/schemas/UpdatePasswordRequest")
      *   )
      * )
      */

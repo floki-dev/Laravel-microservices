@@ -17,11 +17,11 @@ class RoleController extends AdminController
      * @OA\Get(path="/roles",
      *   security={{"bearerAuth":{}}},
      *   tags={"Roles"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="Role Collection",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
@@ -35,11 +35,11 @@ class RoleController extends AdminController
      *   path="/roles",
      *   security={{"bearerAuth":{}}},
      *   tags={"Roles"},
-     *   @OA\Response(response="201",
+     * @OA\Response(response="201",
      *     description="Role Create",
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -49,10 +49,12 @@ class RoleController extends AdminController
 
         if ($permissions = $request->input('permissions')) {
             foreach ($permissions as $permission_id) {
-                DB::table('role_permission')->insert([
-                    'role_id' => $role->id,
-                    'permission_id' => $permission_id,
-                ]);
+                DB::table('role_permission')->insert(
+                    [
+                        'role_id' => $role->id,
+                        'permission_id' => $permission_id,
+                    ]
+                );
             }
         }
 
@@ -63,20 +65,20 @@ class RoleController extends AdminController
      * @OA\Get(path="/roles/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Roles"},
-     *   @OA\Response(response="200",
+     * @OA\Response(response="200",
      *     description="User",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Role ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($id): RoleResource
     {
@@ -90,20 +92,20 @@ class RoleController extends AdminController
      *   path="/roles/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Roles"},
-     *   @OA\Response(response="202",
+     * @OA\Response(response="202",
      *     description="Role Update",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Role ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                      \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -117,10 +119,12 @@ class RoleController extends AdminController
 
         if ($permissions = $request->input('permissions')) {
             foreach ($permissions as $permission_id) {
-                DB::table('role_permission')->insert([
-                    'role_id' => $role->id,
-                    'permission_id' => $permission_id,
-                ]);
+                DB::table('role_permission')->insert(
+                    [
+                        'role_id' => $role->id,
+                        'permission_id' => $permission_id,
+                    ]
+                );
             }
         }
 
@@ -131,20 +135,20 @@ class RoleController extends AdminController
      * @OA\Delete(path="/roles/{id}",
      *   security={{"bearerAuth":{}}},
      *   tags={"Roles"},
-     *   @OA\Response(response="204",
+     * @OA\Response(response="204",
      *     description="Role Delete",
      *   ),
-     *   @OA\Parameter(
+     * @OA\Parameter(
      *     name="id",
      *     description="Role ID",
      *     in="path",
      *     required=true,
-     *     @OA\Schema(
+     * @OA\Schema(
      *        type="integer"
      *     )
      *   )
      * )
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws                        \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {

@@ -9,7 +9,7 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -19,9 +19,12 @@ class UserResource extends JsonResource
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
-            $this->mergeWhen(\Auth::user()->isAdmin(), [
-                'role' => $this->role,
-            ]),
+            $this->mergeWhen(
+                \Auth::user()->isAdmin(),
+                [
+                    'role' => $this->role,
+                ]
+            ),
         ];
     }
 }
