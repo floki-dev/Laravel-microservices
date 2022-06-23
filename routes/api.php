@@ -11,7 +11,6 @@
 |
 */
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\OrderController;
@@ -19,6 +18,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return 'API is working!';
@@ -40,7 +40,7 @@ Route::group([
 Route::group([
     'middleware' => ['auth:api', 'scope:admin'], // Unauthenticated if header Accept application/json
     'prefix' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'Admin',
 ], function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -58,7 +58,7 @@ Route::group([
 // Influencer
 Route::group([
     'prefix' => 'influencer',
-    'namespace' => 'Influencer'
+    'namespace' => 'Influencer',
 ], function () {
     Route::get('products', [ProductController::class, 'index']);
 });

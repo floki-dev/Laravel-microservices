@@ -21,16 +21,17 @@ class ImageController extends AdminController
      *   )
      * )
      */
-    #[ArrayShape(['url' => "string"])] public function upload(ImageUploadRequest $request): array
-    {
-        $file = $request->file('image');
-        $name = Str::random(10);
-        $url = Storage::putFileAs(
-            'images',
-            $file,
-            $name . '.' . $file->extension()
-        );
+    #[ArrayShape(['url' => 'string'])]
+ public function upload(ImageUploadRequest $request): array
+ {
+     $file = $request->file('image');
+     $name = Str::random(10);
+     $url = Storage::putFileAs(
+         'images',
+         $file,
+         $name.'.'.$file->extension()
+     );
 
-        return ['url' => Storage::url($url)];
-    }
+     return ['url' => Storage::url($url)];
+ }
 }

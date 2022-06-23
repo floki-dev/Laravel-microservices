@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/check', function () {
-    dd(Storage::url('images/aVTLLCHGUI.jpg'));
+//    dd(Storage::url('images/aVTLLCHGUI.jpg'));
+
     return view('welcome');
 });
-
 
 Route::get('/linkstorage', function () {
     Artisan::call('storage:link');

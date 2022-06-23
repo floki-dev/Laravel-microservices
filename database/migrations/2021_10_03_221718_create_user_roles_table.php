@@ -29,7 +29,7 @@ return new class () extends Migration {
         foreach ($users as $user) {
             DB::table('user_roles')->insert([
                 'user_id' => $user->id,
-                'role_id' => $user->role_id
+                'role_id' => $user->role_id,
             ]);
         }
     }

@@ -20,21 +20,21 @@ class UserSeeder extends Seeder
             'first_name' => 'Admin',
             'last_name' => 'Admin',
             'email' => 'admin@admin.com',
-//            'role_id' => Role::ADMIN_ID,
+            //            'role_id' => Role::ADMIN_ID,
         ]);
 
         User::factory()->create([
             'first_name' => 'Editor',
             'last_name' => 'Editor',
             'email' => 'editor@editor.com',
-//            'role_id' => Role::EDITOR_ID,
+            //            'role_id' => Role::EDITOR_ID,
         ]);
 
         User::factory()->create([
             'first_name' => 'Viewer',
             'last_name' => 'Viewer',
             'email' => 'viewer@viewer.com',
-//            'role_id' => Role::VIEWER_ID,
+            //            'role_id' => Role::VIEWER_ID,
         ]);
     }
 }

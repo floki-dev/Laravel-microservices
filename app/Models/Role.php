@@ -26,7 +26,9 @@ class Role extends Model
     public $timestamps = false;
 
     public const ADMIN_ID = 1;
+
     public const EDITOR_ID = 2;
+
     public const VIEWER_ID = 3;
 
     public function permissions(): BelongsToMany

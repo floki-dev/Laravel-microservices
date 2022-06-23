@@ -9,10 +9,11 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class PermissionController extends AdminController
 {
-    #[ArrayShape(['data' => "mixed"])] public function index(): array
-    {
-        return [
-            'data' => Permission::all(),
-        ];
-    }
+    #[ArrayShape(['data' => 'mixed'])]
+ public function index(): array
+ {
+     return [
+         'data' => Permission::all(),
+     ];
+ }
 }

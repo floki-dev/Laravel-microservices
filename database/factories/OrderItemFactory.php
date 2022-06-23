@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use JetBrains\PhpStorm\ArrayShape;
 
 class OrderItemFactory extends Factory
 {
@@ -20,7 +19,7 @@ class OrderItemFactory extends Factory
      *
      * @return array
      */
-    #[ArrayShape(['product_title' => "string", 'price' => "int", 'quantity' => "int"])] public function definition(): array
+    public function definition(): array
     {
         return [
             'product_title' => $this->faker->text(30),

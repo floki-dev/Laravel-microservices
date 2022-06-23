@@ -35,7 +35,7 @@ class UserController extends AdminController
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        Gate::authorize('view', "users");
+        Gate::authorize('view', 'users');
 
         $users = User::paginate();
 
@@ -63,7 +63,7 @@ class UserController extends AdminController
      */
     public function show($id): UserResource
     {
-        Gate::authorize('view', "users");
+        Gate::authorize('view', 'users');
 
         $user = User::find($id);
 
@@ -87,7 +87,7 @@ class UserController extends AdminController
      */
     public function store(UserCreateRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        Gate::authorize('edit', "users");
+        Gate::authorize('edit', 'users');
 
         $user = User::create(
             $request->only('first_name', 'last_name', 'email')
@@ -96,7 +96,7 @@ class UserController extends AdminController
 
         UserRole::create([
             'user_id' => $user->id,
-            'role_id' => $request->input('role_id')
+            'role_id' => $request->input('role_id'),
         ]);
 
         return response(new UserResource($user), Response::HTTP_CREATED);
@@ -128,7 +128,7 @@ class UserController extends AdminController
      */
     public function update(UserUpdateRequest $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        Gate::authorize('edit', "users");
+        Gate::authorize('edit', 'users');
 
         $user = User::find($id);
 
@@ -138,7 +138,7 @@ class UserController extends AdminController
 
         UserRole::create([
             'user_id' => $user->id,
-            'role_id' => $request->input('role_id')
+            'role_id' => $request->input('role_id'),
         ]);
 
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
@@ -165,7 +165,7 @@ class UserController extends AdminController
      */
     public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        Gate::authorize('edit', "users");
+        Gate::authorize('edit', 'users');
 
         User::destroy($id);
 

@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             $this->mergeWhen(\Auth::user()->isAdmin(), [
-                'role' => $this->role
+                'role' => $this->role,
             ]),
         ];
     }

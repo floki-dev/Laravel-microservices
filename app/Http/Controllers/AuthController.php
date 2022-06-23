@@ -55,7 +55,7 @@ class AuthController extends Controller
             $request->only('first_name', 'last_name', 'email')
             + [
                 'password' => Hash::make($request->input('password')),
-                'is_influencer' => 1
+                'is_influencer' => 1,
             ]
         );
 

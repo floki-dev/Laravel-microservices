@@ -70,14 +70,14 @@ class OrderController extends AdminController
         Gate::authorize('view', 'orders');
 
         $headers = [
-            "Content-type" => "text/csv",
+            'Content-type' => 'text/csv',
             // предупредить пользователя о необходимости сохранить пересылаемые данные, такие как сгенерированный файл
-            "Content-Disposition" => "attachment; filename=orders.csv",
+            'Content-Disposition' => 'attachment; filename=orders.csv',
             // То же, что и Cache-Control: no-cache. Заставляет кеши отправлять запрос на исходный сервер для проверки перед выпуском кешированной копии.
-            "Pragma" => "no-cache",
+            'Pragma' => 'no-cache',
             // must revalidate - Кеш должен проверить статус устаревших ресурсов перед их использованием. Просроченные ресурсы не должны быть использованы.
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0",
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
         ];
 
         $callback = static function () {
