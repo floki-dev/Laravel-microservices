@@ -15,6 +15,7 @@ yarn-error.log
 /.vscode
 
 !/_ide_helper.php
+!/phpcs.xml
 
 /todo.txt
 /project_commands.txt
