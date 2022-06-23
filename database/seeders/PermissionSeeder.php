@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +12,7 @@ class PermissionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Permission::insert([
             ['name' => 'view_users'],

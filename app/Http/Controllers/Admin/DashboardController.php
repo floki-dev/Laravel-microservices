@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\ChartResource;
@@ -8,7 +10,10 @@ use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends AdminController
 {
-    public function chart()
+    /**
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function chart(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         Gate::authorize('view', 'orders');
 

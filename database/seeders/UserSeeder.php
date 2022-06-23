@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         User::factory(20)->create();
 
@@ -20,21 +20,21 @@ class UserSeeder extends Seeder
             'first_name' => 'Admin',
             'last_name' => 'Admin',
             'email' => 'admin@admin.com',
-            'role_id' => 1,
+//            'role_id' => Role::ADMIN_ID,
         ]);
 
         User::factory()->create([
             'first_name' => 'Editor',
             'last_name' => 'Editor',
             'email' => 'editor@editor.com',
-            'role_id' => 2,
+//            'role_id' => Role::EDITOR_ID,
         ]);
 
         User::factory()->create([
             'first_name' => 'Viewer',
             'last_name' => 'Viewer',
             'email' => 'viewer@viewer.com',
-            'role_id' => 3,
+//            'role_id' => Role::VIEWER_ID,
         ]);
     }
 }

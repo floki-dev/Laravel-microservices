@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use JetBrains\PhpStorm\ArrayShape;
 
 class OrderFactory extends Factory
 {
@@ -19,7 +20,7 @@ class OrderFactory extends Factory
      *
      * @return array
      */
-    public function definition(): array
+    #[ArrayShape(['first_name' => "string", 'last_name' => "string", 'email' => "string", 'created_at' => "\DateTime"])] public function definition(): array
     {
         return [
             'first_name' => $this->faker->firstName,

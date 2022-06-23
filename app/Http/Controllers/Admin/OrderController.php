@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\OrderResource;
@@ -16,8 +18,9 @@ class OrderController extends AdminController
      *     description="Order Collection",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         Gate::authorize('view', 'orders');
 
@@ -43,10 +46,11 @@ class OrderController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($id)
+    public function show($id): OrderResource
     {
-        \Gate::authorize('view', 'orders');
+        Gate::authorize('view', 'orders');
 
         return new OrderResource(Order::find($id));
     }
@@ -59,22 +63,11 @@ class OrderController extends AdminController
      *     description="Order Export",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function export()
+    public function export(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
-        \Gate::authorize('view', 'orders');
-
-// Если Вы будет вставлять этот код в начало каждого PHP файла, то он не будет кешироваться.
-//        Response.ClearHeaders();
-//        Response.AppendHeader("Cache-Control", "no-cache"); //HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "private"); // HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "no-store"); // HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "must-revalidate"); // HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "max-stale=0"); // HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "post-check=0"); // HTTP 1.1
-//        Response.AppendHeader("Cache-Control", "pre-check=0"); // HTTP 1.1
-//        Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0
-//        Response.AppendHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT"); // HTTP 1.0
+        Gate::authorize('view', 'orders');
 
         $headers = [
             "Content-type" => "text/csv",
@@ -87,7 +80,7 @@ class OrderController extends AdminController
             "Expires" => "0",
         ];
 
-        $callback = function () {
+        $callback = static function () {
             $orders = Order::all();
             $file = fopen('php://output', 'w');
 

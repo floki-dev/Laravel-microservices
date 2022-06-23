@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
@@ -24,7 +26,7 @@ class AuthController extends Controller
      *   )
      * )
      */
-    public function login(Request $request)
+    public function login(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
@@ -40,14 +42,14 @@ class AuthController extends Controller
         return response(['error' => 'Invalid Credentials!'], Response::HTTP_UNAUTHORIZED);
     }
 
-    public function logout()
+    public function logout(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $cookie = Cookie::forget('jwt');
 
         return response(['message' => 'success'])->withCookie($cookie);
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $user = User::create(
             $request->only('first_name', 'last_name', 'email')
@@ -69,7 +71,7 @@ class AuthController extends Controller
      *   )
      * )
      */
-    public function user()
+    public function user(): UserResource
     {
         $user = Auth::user();
 
@@ -87,6 +89,8 @@ class AuthController extends Controller
     }
 
     /**
+     * Login update info
+     *
      * @OA\Put(
      *   path="/users/info",
      *   security={{"bearerAuth":{}}},
@@ -100,7 +104,7 @@ class AuthController extends Controller
      *   )
      * )
      */
-    public function updateInfo(UpdateInfoRequest $request) // login update info
+    public function updateInfo(UpdateInfoRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $user = Auth::user();
 
@@ -123,7 +127,7 @@ class AuthController extends Controller
      *   )
      * )
      */
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword(UpdatePasswordRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $user = Auth::user();
 

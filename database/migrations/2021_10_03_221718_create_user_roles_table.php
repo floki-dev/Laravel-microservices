@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      *
@@ -25,7 +26,7 @@ return new class extends Migration
 
         $users = User::all();
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             DB::table('user_roles')->insert([
                 'user_id' => $user->id,
                 'role_id' => $user->role_id

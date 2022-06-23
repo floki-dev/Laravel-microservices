@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserCreateRequest;
@@ -29,8 +31,9 @@ class UserController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         Gate::authorize('view', "users");
 
@@ -56,8 +59,9 @@ class UserController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($id)
+    public function show($id): UserResource
     {
         Gate::authorize('view', "users");
 
@@ -79,8 +83,9 @@ class UserController extends AdminController
      *     @OA\JsonContent(ref="#/components/schemas/UserCreateRequest")
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(UserCreateRequest $request)
+    public function store(UserCreateRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         Gate::authorize('edit', "users");
 
@@ -119,8 +124,9 @@ class UserController extends AdminController
      *     @OA\JsonContent(ref="#/components/schemas/UserUpdateRequest")
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         Gate::authorize('edit', "users");
 
@@ -157,7 +163,7 @@ class UserController extends AdminController
      * )
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         Gate::authorize('edit', "users");
 

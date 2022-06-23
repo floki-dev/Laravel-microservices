@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,8 +21,9 @@ class RoleController extends AdminController
      *     description="Role Collection",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         Gate::authorize('view', 'roles');
 
@@ -35,16 +39,17 @@ class RoleController extends AdminController
      *     description="Role Create",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        \Gate::authorize('edit', 'roles');
+        Gate::authorize('edit', 'roles');
 
         $role = Role::create($request->only('name'));
 
         if ($permissions = $request->input('permissions')) {
             foreach ($permissions as $permission_id) {
-                \DB::table('role_permission')->insert([
+                DB::table('role_permission')->insert([
                     'role_id' => $role->id,
                     'permission_id' => $permission_id,
                 ]);
@@ -71,10 +76,11 @@ class RoleController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($id)
+    public function show($id): RoleResource
     {
-        \Gate::authorize('view', 'roles');
+        Gate::authorize('view', 'roles');
 
         return new RoleResource(Role::find($id));
     }
@@ -97,20 +103,21 @@ class RoleController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        \Gate::authorize('edit', 'roles');
+        Gate::authorize('edit', 'roles');
 
         $role = Role::find($id);
 
         $role->update($request->only('name'));
 
-        \DB::table('role_permission')->where('role_id', $role->id)->delete();
+        DB::table('role_permission')->where('role_id', $role->id)->delete();
 
         if ($permissions = $request->input('permissions')) {
             foreach ($permissions as $permission_id) {
-                \DB::table('role_permission')->insert([
+                DB::table('role_permission')->insert([
                     'role_id' => $role->id,
                     'permission_id' => $permission_id,
                 ]);
@@ -137,11 +144,11 @@ class RoleController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-
-        \Gate::authorize('edit', 'roles');
+        Gate::authorize('edit', 'roles');
 
         Role::destroy($id);
 

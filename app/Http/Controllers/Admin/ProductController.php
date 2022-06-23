@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductCreateRequest;
@@ -19,8 +21,9 @@ class ProductController extends AdminController
      *     description="Product Collection",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         Gate::authorize('view', 'products');
 
@@ -46,8 +49,9 @@ class ProductController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show($id)
+    public function show($id): ProductResource
     {
         \Gate::authorize('view', 'products');
 
@@ -63,10 +67,11 @@ class ProductController extends AdminController
      *     description="Product Create",
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(ProductCreateRequest $request)
+    public function store(ProductCreateRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        \Gate::authorize('edit', 'products');
+        Gate::authorize('edit', 'products');
 
         $product = Product::create($request->only('title', 'description', 'image', 'price'));
 
@@ -91,10 +96,11 @@ class ProductController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        \Gate::authorize('edit', 'products');
+        Gate::authorize('edit', 'products');
 
         $product = Product::find($id);
 
@@ -120,10 +126,11 @@ class ProductController extends AdminController
      *     )
      *   )
      * )
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy($id)
+    public function destroy($id): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        \Gate::authorize('edit', 'products');
+        Gate::authorize('edit', 'products');
 
         Product::destroy($id);
 

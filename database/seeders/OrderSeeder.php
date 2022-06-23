@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class OrderSeeder extends Seeder
@@ -12,8 +13,9 @@ class OrderSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws Exception
      */
-    public function run()
+    public function run(): void
     {
         Order::factory(30)->create()
             ->each(function (Order $order) {
