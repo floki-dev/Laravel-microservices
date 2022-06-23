@@ -27,7 +27,7 @@ class ImageController extends AdminController
         $url = Storage::putFileAs(
             'images',
             $file,
-            $name.'.'.$file->extension()
+            $name . '.' . $file->extension()
         );
 
         return ['url' => Storage::url($url)];
